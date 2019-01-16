@@ -100,11 +100,7 @@ export default class LayerManager {
 
       // deactive Element Display Show
       if (this.checkSlope(this.clientXY.stayMouse, this.clientXY.moveMouse)) {
-<<<<<<< HEAD
-        if (this.checkMouseInTriangle) return activeEle.preventDefault();
-=======
         if (this.checkMouseInTriangle) return this.deactiveShowListLayer(liElement);
->>>>>>> 61a5fe3b7de350c622b0262df0faf23246a57426
         else this.resetStayMousePosition;
       }
       else this.setShowAttribute(activeEle);
@@ -118,19 +114,13 @@ export default class LayerManager {
 
       // deactive Element Display Hidden
       if (this.checkSlope(this.clientXY.stayMouse, this.clientXY.moveMouse)) {
-<<<<<<< HEAD
-        if (this.checkMouseInTriangle) return activeEle.preventDefault();
-=======
         if (this.checkMouseInTriangle) return this.deactiveHiddenListLayer(liElement);
->>>>>>> 61a5fe3b7de350c622b0262df0faf23246a57426
         else this.resetStayMousePosition;
       }
       else this.setHiddenAttribute(activeEle);
     });
   }
 
-<<<<<<< HEAD
-=======
   deactiveShowListLayer(liElement) {
     liElement.removeEventListener("mouseenter", (activeEle) => this.setShowAttribute(activeEle));
   }
@@ -139,7 +129,6 @@ export default class LayerManager {
     liElement.removeEventListener("mouseleave", (activeEle) => this.setHiddenAttribute(activeEle));
   }
 
->>>>>>> 61a5fe3b7de350c622b0262df0faf23246a57426
   // Setting Display Dimmed Text 
   setShowAttText(active) {
     this.setAttributeColorText(active);
