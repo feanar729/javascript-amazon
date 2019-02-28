@@ -1,12 +1,12 @@
 import { throttle, debounce } from './setThrottleDebounce.js';
 
 export default class Carousel {
-  constructor(layer) {
+  constructor(state) {
     this.carousel = {
-      ulLayer: layer.carousel,
-      showLayer: layer.parentCarousel,
-      prev: layer.prev,
-      next: layer.next,
+      ulLayer: state.carousel,
+      showLayer: state.parentCarousel,
+      prev: state.prev,
+      next: state.next,
     }
 
     // request Animation을 담기 위한 값
@@ -15,6 +15,7 @@ export default class Carousel {
     this.reactAuto;
 
     // set Timer(React / Auto act)
+<<<<<<< HEAD
     this.setAutoActTimer = layer.autoActTime;
     this.setReactTimer = layer.reactTime;
 
@@ -23,6 +24,16 @@ export default class Carousel {
 
     // click Pause AutoAct Method On/ Off
     this.pauseAct = layer.switchPause;
+=======
+    this.setAutoActTimer = state.autoActTime;
+    this.setReactTimer = state.reactTime;
+
+    // Auto Act Method On/ Off
+    this.autoAct = state.switchAutoMove;
+
+    // click Pause AutoAct Method On/ Off
+    this.pauseAct = state.switchPause;
+>>>>>>> feanar729
   }
 
   init() {

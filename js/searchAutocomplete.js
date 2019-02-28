@@ -2,11 +2,11 @@ import { throttle, debounce } from './setThrottleDebounce.js';
 import { $, $All } from "./docSelector.js";
 
 export default class AutoComplete {
-  constructor(layer) {
+  constructor(state) {
     this.element = {
-      input: layer.inputEl,
-      navSearch: layer.navSearchEl,
-      dimmed: layer.dimmedEl,
+      input: state.inputEl,
+      navSearch: state.navSearchEl,
+      dimmed: state.dimmedEl,
     }
     this.KEYCODE = {
       UPKEY: 38,
@@ -14,6 +14,7 @@ export default class AutoComplete {
       ENTERKEY: 13,
     }
     this.currentFocus = -1;
+    this.setAPI = `http://crong.codesquad.kr:8080/amazon/ac/`;
   }
 
   setDisplayOffDimmed() {
@@ -27,29 +28,26 @@ export default class AutoComplete {
   }
 
   getMatchedClickItem(childDiv) {
-    childDiv.addEventListener("click", (e) => {
-      this.element.input.value = e.target.children[1].textContent;
-      e.target.parentNode.remove(e.target.parentNode);
+    childDiv.addEventListener("click", ({ target }) => {
+      this.element.input.value = target.children[1].textContent;
+      target.parentNode.remove(target.parentNode);
       this.setDisplayOffDimmed();
     });
   }
 
-  eventKeydown() {
-    this.element.input.addEventListener("keydown", (e) => {
-      // Exception Handling
-      if (!e) return e.preventDefault();
+  eventKeydown(event) {
+    const isHaveList = event.target.nextElementSibling === null || event.target.nextElementSibling === undefined;
+    if (isHaveList) return;
 
-      let matchWordList = e.target.nextElementSibling.childNodes;
-      if (!matchWordList) return false;
+    let matchWordList = event.target.nextElementSibling.childNodes;
 
-      if (this.KEYCODE.UPKEY === e.keyCode) {
-        this.setUpKeyEvent(matchWordList);
-      } else if (this.KEYCODE.DOWNKEY === e.keyCode) {
-        this.setDownKeyEvent(matchWordList);
-      } else if (this.KEYCODE.ENTERKEY === e.keyCode) {
-        this.setEnterKeyEvent(e);
-      }
-    });
+    if (event.keyCode === this.KEYCODE.UPKEY) {
+      this.setUpKeyEvent(matchWordList);
+    } else if (event.keyCode === this.KEYCODE.DOWNKEY) {
+      this.setDownKeyEvent(matchWordList);
+    } else if (event.keyCode === this.KEYCODE.ENTERKEY) {
+      this.setEnterKeyEvent(event);
+    }
   }
 
   setEnterKeyEvent(event) {
@@ -58,7 +56,6 @@ export default class AutoComplete {
     autoCompleteList.remove(autoCompleteList);
     this.setDisplayOffDimmed();
   }
-
 
   setUpKeyEvent(matchWordList) {
     this.currentFocus--;
@@ -112,7 +109,7 @@ export default class AutoComplete {
     for (let val of allEl) {
       let searchWord = val.children[1].textContent;
       if (searchWord.indexOf(inputWord) > -1) {
-        val.style.display = '';
+        val.style.display = "";
       } else {
         val.style.display = 'none';
       }
@@ -134,19 +131,17 @@ export default class AutoComplete {
     let inputWord = inputNode.target.value;
     if (!inputNode || inputWord === "") return this.removeAutofillListEl(inputNode);
 
-    let URL = `http://crong.codesquad.kr:8080/amazon/ac/${inputWord}`;
+    let URL = `${this.setAPI}${inputWord}`;
 
     fetch(URL)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((json) => {
         let matchVal = json.suggestions;
         if (!matchVal) return;
 
+        this.currentFocus = -1; // 새로운 AutoComplete 생성시 검색된 결과 index 초기화
         const parentList = this.setMatchListEl(inputNode);
         this.setMatchingWord({ parentList, matchVal, inputWord });
-        this.eventKeydown();
       })
       .catch(err => console.error(err));
   }
@@ -179,5 +174,6 @@ export default class AutoComplete {
 
   init() {
     this.element.input.addEventListener("input", debounce((inputNode) => this.setInputEvent(inputNode), 1000));
+    this.element.input.addEventListener("keydown", (e) => this.eventKeydown(e));
   }
 }
