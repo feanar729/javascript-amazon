@@ -14,7 +14,8 @@ export default class AutoComplete {
       ENTERKEY: 13,
     }
     this.currentFocus = -1;
-    this.setAPI = `http://crong.codesquad.kr:8080/amazon/ac/`;
+    this.setURL = state.setURL;
+    this.setDelayTime = state.delayTime;
   }
 
   setDisplayOffDimmed() {
@@ -118,7 +119,7 @@ export default class AutoComplete {
 
   setMatchListEl(inputNode) {
     const haveList = $("#autoComplete-list");
-    if (haveList) this.removeAutofillListEl(inputNode)
+    if (haveList) this.removeAutofillListEl(inputNode);
 
     const ul = document.createElement("ul");
     ul.setAttribute("id", "autoComplete-list");
@@ -131,9 +132,16 @@ export default class AutoComplete {
     let inputWord = inputNode.target.value;
     if (!inputNode || inputWord === "") return this.removeAutofillListEl(inputNode);
 
-    let URL = `${this.setAPI}${inputWord}`;
+    let URL = `${this.setURL}${inputWord}`;
 
-    fetch(URL)
+    const init = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors',
+    };
+    const request = new Request(URL, init);
+
+    fetch(request)
       .then((response) => response.json())
       .then((json) => {
         let matchVal = json.suggestions;
@@ -173,7 +181,7 @@ export default class AutoComplete {
   }
 
   init() {
-    this.element.input.addEventListener("input", debounce((inputNode) => this.setInputEvent(inputNode), 1000));
+    this.element.input.addEventListener("input", debounce((inputNode) => this.setInputEvent(inputNode), this.setDelayTime));
     this.element.input.addEventListener("keydown", (e) => this.eventKeydown(e));
   }
 }
