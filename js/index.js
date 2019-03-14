@@ -46,6 +46,8 @@ const autoComplete = new SearchAutocomplete({
   delayTime: 1000,
 });
 
+const carousel = new CarouselMenu();
+
 layerManager.init();
 topMenu.init();
 carousel.init();
