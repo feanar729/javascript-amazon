@@ -42,7 +42,7 @@ const autoComplete = new SearchAutocomplete({
   inputEl: $("#inputWord"),
   navSearchEl: $(".nav-input-field"),
   dimmedEl: $(".nav-dimmed-cover-off"),
-  setURL: "http://crong.codesquad.kr:8080/amazon/ac/",
+  setURL: "https://h3rb9c0ugl.execute-api.ap-northeast-2.amazonaws.com/develop/amazon_autocomplete?query=",
   delayTime: 1000,
 });
 
