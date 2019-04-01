@@ -144,7 +144,7 @@ export default class AutoComplete {
     fetch(request)
       .then((response) => response.json())
       .then((json) => {
-        let matchVal = json.suggestions;
+        let matchVal = json.body.suggestions;
         if (!matchVal) return;
 
         this.currentFocus = -1; // 새로운 AutoComplete 생성시 검색된 결과 index 초기화

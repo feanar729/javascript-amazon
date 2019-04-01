@@ -1,6 +1,21 @@
 # javascript-amazon
 레벨3
 
+## 주요 기능 
+   1. Hidden Plan Layer
+    - 스크롤시 일정 지점에 도달하게 되면 숨겨진 Layer 표시  
+   2. Carousel 기능
+    - 일정 시간(3초) 마다 우측 이동.
+    - 좌/우 버튼 클릭시 좌/우 이동.
+    - 일정시간(설정 3.5초)뒤 다시 우측으로 자동 이동 
+   3. 자동 검색 완성
+    - j.a.v.a.s.c.r.i.p.t, i.p.h.o.n.e, b.. 등등 API 데이터에 따라 검색 시 자동검색 완성창 표시 
+    - 자동검색완성 창 상/하단 화살표 이동시 마다 색상 표시 및 검색창에 매칭 된 단어값 입력
+    - 마우스 호버(hover)시 색상 변경 기능 
+    - 엔터키 입력시 검색완성창이 사라지고, 검색창에 엔터친 입력값 검색창 기입
+   4. Mega Drop Down Menu(기능 보완 중)
+
+
 ## STEP 4 [Carousel Slide]
 - Debounce 적용 경험 블로그 기록
 > - https://medium.com/@feanar729/debounce%EB%9E%80-%EB%AD%98%EA%B9%8C%EC%9A%94-82204c8b953f 
