@@ -1,6 +1,7 @@
 # javascript-amazon
 - [데모 페이지](https://feanar729.github.io/javascript-amazon/)
 - Amazon prime UI 및 기능 replica project
+- [module Javascript](https://github.com/feanar729/javascript-amazon/tree/master/js)
 - 진행과정(상-하순)
   - HTML, CSS 제작[https://trello.com/c/bsB7c7bs]
   - Plan Layer 제작[https://trello.com/c/KT03uwnu]
@@ -23,11 +24,11 @@
    4. Mega Drop Down Menu(기능 보완 중)
 
 
-## STEP 4 [Carousel Slide]
+## Carousel Slide [STEP 4] 
 - Debounce 적용 경험 블로그 기록
 > - https://medium.com/@feanar729/debounce%EB%9E%80-%EB%AD%98%EA%B9%8C%EC%9A%94-82204c8b953f 
 
-## STEP 7 [메가 드롭 다운 메뉴]
+## 메가 드롭 다운 메뉴 [STEP 7]
 - 마우스에 상위 메뉴에 있는 각 content 메뉴를(outer-layer > content-layer) hover시 하위 메뉴 open 
 - 마우스에 content 메뉴에 일정시간(300ms) 머무를시 마우스 위치값 저장
 - content 메뉴에서 하위 메뉴(inner-layer)로 대각선 이동시 확인(대각선 값 확인)
